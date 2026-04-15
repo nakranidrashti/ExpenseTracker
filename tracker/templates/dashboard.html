@@ -1,0 +1,526 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+  Dashboard
+{% endblock %}
+
+{% block content %}
+  <div class="container-fluid">
+    <!-- WARNING : EXPENSE > INCOME -->
+    {% if expense_income_warning %}
+      <div class="alert alert-danger mb-4">⚠️ Your expenses are higher than your income this month!</div>
+    {% endif %}
+
+    <!-- BUDGET WARNINGS -->
+    {% for warning in budget_warnings %}
+      <div class="alert alert-warning mb-3">⚠️ {{ warning }}</div>
+    {% endfor %}
+
+<!-- TOP CARDS -->
+<!-- TOP CARDS -->
+<div class="row g-4 mb-4">
+
+  <!-- INCOME -->
+  <div class="col-md-4">
+    <div class="card card-custom p-4 stat-card hover-card">
+
+      <div class="card-content">
+        <i class="bi bi-cash-coin stat-icon text-success"></i>
+        <h5>Total Income</h5>
+        <div class="stat-value text-success counter" data-target="{{ total_income }}">0</div>
+      </div>
+
+      <div class="hover-overlay">
+        <a href="{% url 'add_income' %}" class="plus-link">
+          <i class="bi bi-plus-circle-fill plus-icon"></i>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- EXPENSE -->
+  <div class="col-md-4">
+    <div class="card card-custom p-4 stat-card hover-card">
+
+      <div class="card-content">
+        <i class="bi bi-credit-card stat-icon text-danger"></i>
+        <h5>Total Expense</h5>
+        <div class="stat-value text-danger counter" data-target="{{ total_expense }}">0</div>
+      </div>
+
+      <div class="hover-overlay">
+        <a href="{% url 'add_expense' %}">
+          <i class="bi bi-plus-circle-fill plus-icon"></i>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- BALANCE -->
+  <div class="col-md-4">
+    <div class="card card-custom p-4 stat-card">
+
+      <div class="card-content">
+        <i class="bi bi-wallet2 stat-icon text-primary"></i>
+        <h5>Balance</h5>
+        <div class="stat-value text-primary counter" data-target="{{ balance }}">0</div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+    <!-- CATEGORY CHARTS -->
+
+    <div class="row g-4 mb-4">
+      <div class="col-md-6">
+        <div class="card card-custom p-4">
+          <h5 class="mb-3">Expense by Category</h5>
+          <canvas id="expenseChart" style="max-height:300px;"></canvas>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="card card-custom p-4">
+          <h5 class="mb-3">Income by Category</h5>
+          <canvas id="incomeChart" style="max-height:300px;"></canvas>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- TREND CHART (MOVE HERE) -->
+
+    <div class="row g-4 mb-4">
+      <div class="col-md-12">
+        <div class="card card-custom p-4">
+          <h5 class="mb-3">Income vs Expense Comparison</h5>
+
+          <canvas id="trendChart" style="height:300px;"></canvas>
+        </div>
+      </div>
+    </div>
+    
+    <!-- EXPENSE ANALYTICS -->
+
+    <div class="row g-4 mb-4">
+      <div class="col-md-12">
+        <div class="card card-custom p-4">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="mb-0" id="chartTitle">Spend by Category</h5>
+
+            <div>
+              <button id="categoryBtn" class="btn btn-sm btn-primary me-2">Category View</button>
+
+              <button id="monthlyBtn" class="btn btn-sm btn-outline-primary">Monthly View</button>
+            </div>
+          </div>
+
+          <canvas id="mainExpenseChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    
+    
+
+    <!-- BUDGET SUMMARY -->
+    <div class="row g-4">
+      <div class="col-md-12">
+        <div class="card card-custom p-4">
+          <h5 class="mb-3">Budget Summary</h5>
+
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th>Budget</th>
+                  <th>Spent</th>
+                  <th>Remaining</th>
+                  <th>Usage</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {% for b in budget_summary %}
+                  <tr>
+                    <td>{{ b.category }}</td>
+                    <td>₹{{ b.budget_amount }}</td>
+                    <td>₹{{ b.actual_amount }}</td>
+                    <td class="{% if b.remaining < 0 %}text-danger{% endif %}">₹{{ b.remaining }}</td>
+
+                    <td>
+                      <div class="progress">
+                        <div class="progress-bar
+                                            {% if b.percentage > 100 %}
+                            
+                            
+                            
+                            
+                            
+                            
+                                                bg-danger
+
+
+
+
+
+
+                          {% elif b.percentage > 75 %}
+                            
+                            
+                            
+                            
+                            
+                            
+                                                bg-warning
+
+
+
+
+
+
+                          {% else %}
+                            
+                            
+                            
+                            
+                            
+                            
+                                                bg-success
+
+
+
+
+
+
+                          {% endif %}
+                                        "
+                          style="width: {{ b.display_percentage }}%">{{ b.display_percentage|floatformat:0 }}%</div>
+                      </div>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  <script>
+
+/* CHECK DARK MODE */
+let isDark = document.body.classList.contains("dark");
+
+/* CATEGORY DATA */
+const categoryLabels = [
+{% for item in expense_by_category %}
+"{{ item.category__name }}"{% if not forloop.last %},{% endif %}
+{% endfor %}
+];
+
+const categoryData = [
+{% for item in expense_by_category %}
+{{ item.total }}{% if not forloop.last %},{% endif %}
+{% endfor %}
+];
+
+/* MONTH DATA */
+const monthLabels = [
+{% for m in months_data %}
+"{{ m }}"{% if not forloop.last %},{% endif %}
+{% endfor %}
+];
+
+const monthData = [
+{% for e in monthly_expense %}
+{{ e }}{% if not forloop.last %},{% endif %}
+{% endfor %}
+];
+const incomeMonthData = [
+{% for i in monthly_income %}
+{{ i }}{% if not forloop.last %},{% endif %}
+{% endfor %}
+];
+
+/* INCOME DATA */
+const incomeLabels = [
+{% for item in income_by_category %}
+"{{ item.category__name }}"{% if not forloop.last %},{% endif %}
+{% endfor %}
+];
+
+const incomeData = [
+{% for item in income_by_category %}
+{{ item.total }}{% if not forloop.last %},{% endif %}
+{% endfor %}
+];
+
+/* CREATE CHARTS */
+
+const mainChart = new Chart(document.getElementById("mainExpenseChart"), {
+    type: "bar",
+    data: {
+        labels: categoryLabels,
+        datasets: [{
+            data: categoryData,
+            backgroundColor: [
+                "#d6eef6","#bfe3ef","#a8d8ea","#90cde5",
+                "#7ec8e3","#6abfdc","#56b6d6","#42adcf",
+                "#2fa4c9","#2498bd"
+            ],
+            borderRadius: 10,
+            barThickness: 70
+        }]
+    },
+    options: {
+        plugins: {
+            tooltip: {
+                titleColor: isDark ? "#fff" : "#000",
+                bodyColor: isDark ? "#fff" : "#000"
+            },
+            legend: { 
+                display: false, 
+                labels: { color: isDark ? "#fff" : "#000" } 
+            }
+        },
+        scales: {
+            x: { 
+                grid: { display: false, color: isDark ? "#555" : "#ccc" }, 
+                ticks: { color: isDark ? "#fff" : "#000" } 
+            },
+            y: { 
+                beginAtZero: true,
+                grid: { color: isDark ? "#555" : "#ccc" }, 
+                ticks: { color: isDark ? "#fff" : "#000" } 
+            }
+        }
+    }
+});
+
+const expenseChart = new Chart(document.getElementById("expenseChart"), {
+    type: "doughnut",
+    data: {
+        labels: categoryLabels,
+        datasets: [{
+            data: categoryData,
+            backgroundColor: [
+                "#ff6b6b","#ff8787","#ffa8a8",
+                "#ffc9c9","#ffdede","#ffeaea"
+            ],
+            borderWidth: 0
+        }]
+    },
+    options:{
+cutout:"72%",
+plugins:{
+legend:{
+position:"bottom",
+labels:{
+padding:20,
+boxWidth:14,
+color:isDark ? "#fff" : "#000"
+}
+}
+}
+}
+});
+
+const incomeChart = new Chart(document.getElementById("incomeChart"), {
+    type: "pie",
+    data: {
+        labels: incomeLabels,
+        datasets:[{
+data:incomeData,
+hoverOffset:15,
+backgroundColor:[
+"#58d68d",
+"#82e0aa",
+"#abebc6",
+"#2ecc71",
+"#d5f5e3",
+"#eafaf1"
+]
+}]
+    },
+    options: {
+        plugins: { legend: { position: "bottom", labels: { color: isDark ? "#fff" : "#000" } } }
+    }
+});
+
+
+const trendChart = new Chart(document.getElementById("trendChart"), {
+type:"line",
+data:{
+labels:monthLabels,
+datasets:[
+{
+label:"Income",
+data:incomeMonthData,
+borderColor:"#2ecc71",
+backgroundColor:"rgba(46,204,113,0.2)",
+tension:0.4,
+fill:true,
+pointRadius:4
+},
+{
+label:"Expense",
+data:monthData,
+borderColor:"#e74c3c",
+backgroundColor:"rgba(231,76,60,0.2)",
+tension:0.4,
+fill:true,
+pointRadius:4
+}
+]
+},
+options:{
+responsive:true,
+plugins:{
+legend:{
+labels:{
+color: isDark ? "#fff" : "#444"
+}
+},
+tooltip:{
+backgroundColor: isDark ? "#333" : "#fff",
+titleColor: isDark ? "#fff" : "#000",
+bodyColor: isDark ? "#fff" : "#000",
+borderColor: isDark ? "#555" : "#ddd",
+borderWidth:1
+}
+},
+scales:{
+x:{
+grid:{
+display:false
+},
+ticks:{
+color: isDark ? "#fff" : "#444"
+}
+},
+y:{
+beginAtZero:true,
+grid:{
+color: isDark ? "#333" : "#eaeaea"
+},
+ticks:{
+color: isDark ? "#fff" : "#444"
+}
+}
+}
+}
+});
+
+
+
+
+/* TOGGLE CATEGORY / MONTH VIEWS */
+document.getElementById("categoryBtn").onclick = function() {
+    mainChart.data.labels = categoryLabels;
+    mainChart.data.datasets[0].data = categoryData;
+    mainChart.update();
+    document.getElementById("chartTitle").innerText = "Spend by Category";
+    this.classList.add("btn-primary"); this.classList.remove("btn-outline-primary");
+    document.getElementById("monthlyBtn").classList.remove("btn-primary");
+    document.getElementById("monthlyBtn").classList.add("btn-outline-primary");
+};
+
+document.getElementById("monthlyBtn").onclick = function() {
+    mainChart.data.labels = monthLabels;
+    mainChart.data.datasets[0].data = monthData;
+    mainChart.update();
+    document.getElementById("chartTitle").innerText = "Monthly Expenses";
+    this.classList.add("btn-primary"); this.classList.remove("btn-outline-primary");
+    document.getElementById("categoryBtn").classList.remove("btn-primary");
+    document.getElementById("categoryBtn").classList.add("btn-outline-primary");
+};
+
+/* DARK MODE CHARTS UPDATE */
+function updateChartsColors() {
+   const isDark = document.body.classList.contains("dark");
+    const textColor = isDark ? "#fff" : "#000";
+    const gridColor = isDark ? "#555" : "#ccc";
+    const tooltipBg = isDark ? "#333" : "#fff";
+
+    // Main chart
+    mainChart.options.scales.x.ticks.color = textColor;
+    mainChart.options.scales.y.ticks.color = textColor;
+    mainChart.options.scales.x.grid.color = gridColor;
+    mainChart.options.scales.y.grid.color = gridColor;
+    mainChart.options.plugins.tooltip.backgroundColor = tooltipBg;
+    mainChart.options.plugins.tooltip.titleColor = textColor;
+    mainChart.options.plugins.tooltip.bodyColor = textColor;
+    mainChart.options.plugins.legend.labels.color = textColor;
+    mainChart.update();
+
+    // Expense chart (doughnut)
+    expenseChart.options.plugins.legend.labels.color = textColor;
+    expenseChart.options.plugins.tooltip.backgroundColor = tooltipBg;
+    expenseChart.options.plugins.tooltip.titleColor = textColor;
+    expenseChart.options.plugins.tooltip.bodyColor = textColor;
+    expenseChart.update();
+
+    // Income chart (pie)
+    incomeChart.options.plugins.legend.labels.color = textColor;
+    incomeChart.options.plugins.tooltip.backgroundColor = tooltipBg;
+    incomeChart.options.plugins.tooltip.titleColor = textColor;
+    incomeChart.options.plugins.tooltip.bodyColor = textColor;
+    incomeChart.update();
+
+    // Trend chart
+trendChart.options.scales.x.ticks.color = textColor;
+trendChart.options.scales.y.ticks.color = textColor;
+trendChart.options.scales.y.grid.color = gridColor;
+trendChart.options.plugins.legend.labels.color = textColor;
+trendChart.options.plugins.tooltip.backgroundColor = tooltipBg;
+trendChart.options.plugins.tooltip.titleColor = textColor;
+trendChart.options.plugins.tooltip.bodyColor = textColor;
+trendChart.update();
+}
+
+
+
+
+// ✅ Run after page load
+window.addEventListener("load", updateChartsColors);
+
+/* TOGGLE THEME FUNCTION */
+
+// ✅ Apply correct colors on page load
+updateChartsColors();
+
+
+/* NUMBER COUNT ANIMATION */
+
+const counters = document.querySelectorAll(".counter");
+
+counters.forEach(counter=>{
+    const update = ()=>{
+        const target = +counter.getAttribute("data-target");
+        const current = +counter.innerText;
+
+        const increment = target / 60;
+
+        if(current < target){
+            counter.innerText = "₹" + Math.ceil(current + increment);
+            setTimeout(update,20);
+        }else{
+            counter.innerText = "₹" + target;
+        }
+    };
+
+    update();
+});
+</script>
+{% endblock %}

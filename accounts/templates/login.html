@@ -1,0 +1,204 @@
+{% load static%}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Login Page</title>
+
+    <!-- Bootstrap 5 CDN -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/png" href="{% static 'images/favIconn.jpg' %}">
+
+    <style>
+      .form-control:focus {
+        border-color: #79b9cc;
+        box-shadow: 0 0 0 0.15rem rgba(121, 185, 204, 0.25);
+      }
+
+      body {
+        background: #fff;
+      }
+
+      .btn-submit {
+        background-color: #79b9cc;
+        color: black;
+        border-radius: 10px;
+        border: none;
+        height: 45px;
+        transition: all 0.5s ease;
+      }
+
+      .btn-submit:hover {
+        background-color: #3f95ad;
+        color: white;
+      }
+
+      .btn-signUp {
+        color: black;
+        border-radius: 10px;
+        border: 1px solid #dbdbdb;
+        height: 45px;
+        transition: all 0.5s ease;
+      }
+
+      .btn-signUp:hover {
+        background-color: #3f95ad;
+        border: none;
+      }
+
+      .login-card {
+        width: 500px;
+        margin: 60px auto;
+        padding: 30px;
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      }
+
+      .captcha-box {
+        background: #e9ecef;
+        padding: 8px 15px;
+        font-weight: bold;
+        letter-spacing: 3px;
+        display: inline-block;
+        border-radius: 5px;
+        user-select: none;
+      }
+
+      .form-floating label {
+        font-size: 14px;
+        color: #8e8e8e;
+      }
+
+      .form-control:hover {
+        box-shadow: none;
+        border-color: #1877f2;
+      }
+
+      .form-select:hover {
+        border-color: #1877f2;
+        box-shadow: 0 0 5px rgba(24, 119, 242, 0.4);
+        transition: 0.3s;
+      }
+
+      .rounded-input {
+        border-radius: 15px !important;
+        /* keeps rounded corners */
+        width: 100%;
+        /* makes input full width of parent */
+        height: 45px;
+        /* adjust height as needed */
+        padding: 10px 15px;
+        /* optional: controls inner spacing */
+        font-size: 14px;
+      }
+
+      /* ALERT STYLE */
+
+      .alert {
+        display: flex;
+        align-items: center;
+        padding: 10px 14px;
+        font-size: 14px;
+        border-radius: 10px;
+        margin-bottom: 15px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+        position: relative;
+      }
+
+      .alert-danger {
+        background: #fdeaea;
+        color: #b02a37;
+        border-left: 4px solid #ea5455;
+      }
+
+      .alert-success {
+        background: #e9f9f0;
+        color: #157347;
+        border-left: 4px solid #28c76f;
+      }
+
+      .alert-info {
+        background: #eef7ff;
+        color: #084298;
+        border-left: 4px solid #5eaec4;
+      }
+    </style>
+  </head>
+
+  <body onload="generateCaptcha()">
+    <div class="login-card">
+      <h3 class="text-center mb-3">Sign In</h3>
+      {% if messages %} {% for message in messages %}
+      <div
+        class="alert {% if message.tags == 'error' %} alert-danger {% elif message.tags == 'success' %} alert-success {% else %} alert-info {% endif %} alert-dismissible fade show"
+      >
+        {{ message }}
+      </div>
+      {% endfor %} {% endif %}
+
+      <form method="POST" autocomplete="off">
+        {% csrf_token %}
+
+        <div class="form-floating mb-3">
+          <input
+            type="text"
+            class="form-control rounded-input"
+            id="username"
+            placeholder="Username"
+            name="username"
+            autocomplete="off"
+          />
+          <label for="username">Username</label>
+        </div>
+
+        <div class="form-floating mb-3">
+          <input
+            type="password"
+            class="form-control rounded-input"
+            id="pass"
+            name="password"
+            placeholder="Password"
+            autocomplete="off"
+          />
+          <label for="pass">Password</label>
+        </div>
+
+        <!-- Captcha Section -->
+        <div class="mb-3">
+          <label>Captcha</label><br />
+          <span class="captcha-box">{{ captcha_text }}</span>
+          <button
+            type="button"
+            class="btn btn-sm btn-secondary ms-2"
+            onclick="window.location.reload()"
+          >
+            ↻
+          </button>
+        </div>
+        <div class="form-floating mb-3">
+          <input
+            type="text"
+            name="captcha_input"
+            class="form-control rounded-input"
+            placeholder="Enter Captcha"
+            required
+          />
+          <label>Enter Captcha</label>
+        </div>
+
+        <div class="d-flex justify-content-between mb-3">
+          <div><input type="checkbox" /> Remember me</div>
+          <a href="{% url 'forgot_password' %}">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="btn btn-submit w-100">Submit</button>
+        <a href="{% url 'register' %}" class="btn btn-outline-primary btn-signUp w-100 mt-2">Sign Up</a>
+        <p class="text-center mt-3" style="font-size: 14px;"> Are you an admin? <a href="{% url 'admin:index' %}">Click here to login</a> </p>
+      </form>
+    </div>
+  </body>
+</html>
