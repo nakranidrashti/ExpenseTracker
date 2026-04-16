@@ -1,6 +1,6 @@
-**# Expense Tracker (Django)
+# Expense Tracker (Django)
 
-A full-stack web application built using Django to manage and analyze income and expenses efficiently. The system provides real-time budget monitoring and automatic expense categorization.
+A full-stack web application built using Django to manage and analyze income and expenses. The system includes budget monitoring and automatic expense categorization.
 
 ---
 
@@ -9,9 +9,9 @@ A full-stack web application built using Django to manage and analyze income and
 - User authentication (registration, login, logout)
 - Add, update, and delete expenses
 - Dashboard for tracking income and expenses
-- Budget monitoring with alerts (exceeded / nearly exhausted)
-- Automatic expense categorization using Multinomial Naive Bayes
-- User profile management (password change, etc.)
+- Budget alerts (exceeded / nearly exhausted)
+- Automatic expense categorization using machine learning
+- User profile management
 
 ---
 
@@ -24,8 +24,10 @@ A full-stack web application built using Django to manage and analyze income and
 
 ---
 
-## Installation and Setup
+## Installation
 
-1. Clone the repository:
 ```bash
-git clone https://github.com/your-username/ExpenseTracker.git**
+git clone https://github.com/nakranidrashti/ExpenseTracker.git
+cd ExpenseTracker
+python manage.py migrate
+python manage.py runserver
