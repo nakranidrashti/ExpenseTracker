@@ -22,4 +22,4 @@ model.fit(X_vec, y)
 joblib.dump(model, "expense_model.pkl")
 joblib.dump(vectorizer, "vectorizer.pkl")
 
-print("✅ Model trained successfully!")
+ print("✅ Model trained successfully!")
