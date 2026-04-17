@@ -1,9 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -397,187 +395,117 @@
     </section>
 
 
-<!-- FEATURES -->
-<section id="features" class="section text-center">
-
-<div class="container">
-
-<h2 class="mb-5">Powerful Features</h2>
-
-<div class="row g-4">
-
-<div class="col-md-4" data-aos="fade-up">
-
-<div class="feature-card">
-
-<i class="bi bi-bar-chart feature-icon"></i>
-
-<h5 class="mt-3">Expense Analytics</h5>
-
-<p>Understand spending using visual charts.</p>
-
-</div>
-
-</div>
-
-<div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-
-<div class="feature-card">
-
-<i class="bi bi-wallet feature-icon"></i>
-
-<h5 class="mt-3">Budget Tracking</h5>
-
-<p>Set limits and monitor your monthly budgets.</p>
-
-</div>
-
-</div>
-
-<div class="col-md-4" data-aos="fade-up" data-aos-delay="400">
-
-<div class="feature-card">
-
-<i class="bi bi-file-earmark-pdf feature-icon"></i>
-
-<h5 class="mt-3">PDF Reports</h5>
-
-<p>Generate professional financial reports.</p>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- HOW IT WORKS -->
-
-<section id="how" class="section text-center">
-
-<div class="container">
-
-<h2 class="mb-5">How It Works</h2>
-
-<div class="row">
-
-<div class="col-md-4 step">
-
-<div class="step-icon">
-1
-</div>
-
-<h5>Create Account</h5>
-
-</div>
-
-<div class="col-md-4 step">
-
-<div class="step-icon">
-2
-</div>
-
-<h5>Add Income & Expenses</h5>
-
-</div>
-
-<div class="col-md-4 step">
-
-<div class="step-icon">
-3
-</div>
-
-<h5>Analyze Spending</h5>
-
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<!-- CTA -->
-
-<section class="container mb-5">
-
-<div class="cta text-center">
-
-<h2>Start Managing Your Finances Today</h2>
-
-<a href="{% url 'register' %}" class="btn btn-light btn-lg mt-3">
-Create Free Account
-</a>
-
-</div>
-
-</section>
-
-<!-- FOOTER -->
-
-<footer>
-
-<div class="container">
-
-<div class="row">
-
-<div class="col-md-4">
-
-<h4>ExpenseTracker</h4>
-
-<p>Smart personal finance management platform.</p>
-
-</div>
-
-<div class="col-md-4">
-
-<h5>Links</h5>
-
-<ul class="list-unstyled">
-
-<li><a href="#">Home</a></li>
-<li><a href="#features">Features</a></li>
-<li><a href="#how">How it Works</a></li>
-
-</ul>
-
-</div>
-
-<div class="col-md-4">
-
-<h5>Social</h5>
-
-<i class="bi bi-facebook me-2"></i>
-<i class="bi bi-instagram me-2"></i>
-<i class="bi bi-twitter"></i>
-
-</div>
-
-</div>
-
-<hr>
-
-<p class="text-center">
-© 2026 Expense Tracker
-</p>
-
-</div>
-
-</footer>
-
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-<script>
-
-AOS.init({
-duration:1000,
-once:true
-});
-
-</script>
+    <!-- FEATURES -->
+    <section id="features" class="section text-center">
+        <div class="container">
+            <h2 class="mb-5">Powerful Features</h2>
+            <div class="row g-4">
+
+                <div class="col-md-4" data-aos="fade-up">
+                    <div class="feature-card">
+                    <i class="bi bi-bar-chart feature-icon"></i>
+                    <h5 class="mt-3">Expense Analytics</h5>
+                    <p>Understand spending using visual charts.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-card">
+                    <i class="bi bi-wallet feature-icon"></i>
+                    <h5 class="mt-3">Budget Tracking</h5>
+                    <p>Set limits and monitor your monthly budgets.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="400">
+                    <div class="feature-card">
+                    <i class="bi bi-file-earmark-pdf feature-icon"></i>
+                    <h5 class="mt-3">PDF Reports</h5>
+                    <p>Generate professional financial reports.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section id="how" class="section text-center">
+        <div class="container">
+            <h2 class="mb-5">How It Works</h2>
+            <div class="row">
+
+                <div class="col-md-4 step">
+                    <div class="step-icon">
+                    1
+                    </div>
+                    <h5>Create Account</h5>
+                </div>
+
+                <div class="col-md-4 step">
+                    <div class="step-icon">
+                    2
+                    </div>
+                    <h5>Add Income & Expenses</h5>
+                </div>
+
+                <div class="col-md-4 step">
+                    <div class="step-icon">
+                    3
+                    </div>
+                    <h5>Analyze Spending</h5>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="container mb-5">
+        <div class="cta text-center">
+            <h2>Start Managing Your Finances Today</h2>
+            <a href="{% url 'register' %}" class="btn btn-light btn-lg mt-3">
+                Create Free Account
+            </a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h4>ExpenseTracker</h4>
+                    <p>Smart personal finance management platform.</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Links</h5>
+                    <ul class="list-unstyled">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#how">How it Works</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Social</h5>
+                    <i class="bi bi-facebook me-2"></i>
+                    <i class="bi bi-instagram me-2"></i>
+                    <i class="bi bi-twitter"></i>
+                </div>
+            </div>
+            <hr>
+            <p class="text-center">
+                © 2026 Expense Tracker
+            </p>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+        duration:1000,
+        once:true
+        });
+    </script>
 
 </body>
 </html>
