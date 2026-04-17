@@ -835,14 +835,6 @@ def delete_expense(request, pk):
 
 
 
-
-
-
-
-
-
-
-
 @login_required(login_url='login')
 def profile(request):
     return render(request, "profile.html")
@@ -861,10 +853,6 @@ def profile(request):
  #       return redirect('image')  # reload page after upload
 
   #  return render(request, "image.html")
-
-
-
-
 
 
 
