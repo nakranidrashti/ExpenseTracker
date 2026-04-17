@@ -34,4 +34,4 @@ def create_or_update_user_profile(sender, instance, created, **kwargs):
 def create_missing_profiles():
     for user in User.objects.all():
         if not hasattr(user, 'profile'):
-        Profile.objects.create(user=user)
+            Profile.objects.create(user=user)
