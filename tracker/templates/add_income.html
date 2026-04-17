@@ -2,9 +2,7 @@
 {% block title %}Add Income{% endblock %}
 
 {% block content %}
-
 <h1 class="page-title">Add Income</h1>
-
 <form method="POST" class="expense-form">
     {% csrf_token %}
 
@@ -50,71 +48,69 @@
 
 <!-- AI Suggestion Script -->
 <script>
+    const description = document.getElementById("description");
+    const category = document.getElementById("category");
+    const suggestion = document.getElementById("suggestion");
 
-const description = document.getElementById("description");
-const category = document.getElementById("category");
-const suggestion = document.getElementById("suggestion");
+    description.addEventListener("keyup", function(){
 
-description.addEventListener("keyup", function(){
+    if(description.value.length < 3){
+    suggestion.classList.remove("show");
+    return;
+    }
 
-if(description.value.length < 3){
-suggestion.classList.remove("show");
-return;
-}
+    /* AI thinking animation */
 
-/* AI thinking animation */
+    suggestion.innerHTML =
+    `<span class="ai-icon">🤖</span>
+    <div>
+    <strong>AI Assistant</strong><br>
+    Analyzing description
+    <span class="ai-loading"><span>.</span><span>.</span><span>.</span></span>
+    </div>`;
 
-suggestion.innerHTML =
-`<span class="ai-icon">🤖</span>
-<div>
-<strong>AI Assistant</strong><br>
-Analyzing description
-<span class="ai-loading"><span>.</span><span>.</span><span>.</span></span>
-</div>`;
+    suggestion.classList.add("show");
 
-suggestion.classList.add("show");
+    setTimeout(() => {
 
-setTimeout(() => {
+    fetch(`/predict-category/?description=${encodeURIComponent(description.value)}`)
+    .then(response => response.json())
+    .then(data => {
+        
+        if(data.category)
+        {
+            let found = false;
+            for(let option of category.options)
+            {
+                if(option.text.toLowerCase() === data.category.toLowerCase())
+                {
+                    category.value = option.value;
+                    found = true;
+                }
+            }
 
-fetch(`/predict-category/?description=${encodeURIComponent(description.value)}`)
-.then(response => response.json())
-.then(data => {
+            if(found)
+            {
+                suggestion.innerHTML =
+                `<span class="ai-icon">🤖</span>
+                <div>
+                <strong>AI Assistant</strong><br>
+                Suggested category: <b>${data.category}</b> ✓
+                </div>`;
+            }
+            else
+            {
+                suggestion.classList.remove("show");
+            }
 
-if(data.category){
+        }
 
-let found = false;
+        })
+    .catch(error => console.log(error));
 
-for(let option of category.options){
+    },800);
 
-if(option.text.toLowerCase() === data.category.toLowerCase()){
-category.value = option.value;
-found = true;
-}
-
-}
-
-if(found){
-
-suggestion.innerHTML =
-`<span class="ai-icon">🤖</span>
-<div>
-<strong>AI Assistant</strong><br>
-Suggested category: <b>${data.category}</b> ✓
-</div>`;
-
-}
-else{
-suggestion.classList.remove("show");
-}
-
-}
-
-})
-.catch(error => console.log(error));
-
-},800);
-
-});
+    });
 
 </script>
 {% endblock %}

@@ -11,88 +11,65 @@
 
 <!-- FILTER FORM -->
 <form method="GET" class="card card-custom p-3 mb-4">
+    <div class="row align-items-end">
+        <!-- Category -->
+        <div class="col-md-3">
+            <label class="form-label">Browse Category</label>
+            <select name="category" class="form-select">
+                <option value="">All Categories</option>
+                {% for cat in categories %}
+                <option value="{{ cat.id }}"
+                {% if selected_category|stringformat:"s" == cat.id|stringformat:"s" %}selected{% endif %}>
+                {{ cat.name }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
 
-<div class="row align-items-end">
+        <!-- Title -->
+        <div class="col-md-3">
+            <label class="form-label">Search Title</label>
+            <input type="text"
+            name="title"
+            value="{{ selected_title }}"
+            class="form-control"
+            placeholder="Enter title">
+        </div>
 
-<!-- Category -->
-<div class="col-md-3">
-<label class="form-label">Browse Category</label>
+        <!-- Month -->
+        <div class="col-md-2">
+            <label class="form-label">Month</label>
+            <select name="month" class="form-select">
+                <option value="">All</option>
+                {% for m,label in months %}
+                <option value="{{ m }}"
+                {% if selected_month|stringformat:"s" == m|stringformat:"s" %}selected{% endif %}>
+                {{ label }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
 
-<select name="category" class="form-select">
-<option value="">All Categories</option>
+    <!-- Year -->
+        <div class="col-md-2">
+            <label class="form-label">Year</label>
+            <input type="number"
+            name="year"
+            value="{{ selected_year }}"
+            class="form-control"
+            placeholder="2026">
+        </div>
 
-{% for cat in categories %}
-<option value="{{ cat.id }}"
-{% if selected_category|stringformat:"s" == cat.id|stringformat:"s" %}selected{% endif %}>
-{{ cat.name }}
-</option>
-{% endfor %}
-
-</select>
-</div>
-
-
-<!-- Title -->
-<div class="col-md-3">
-<label class="form-label">Search Title</label>
-
-<input type="text"
-name="title"
-value="{{ selected_title }}"
-class="form-control"
-placeholder="Enter title">
-
-</div>
-
-
-<!-- Month -->
-<div class="col-md-2">
-<label class="form-label">Month</label>
-
-<select name="month" class="form-select">
-
-<option value="">All</option>
-
-{% for m,label in months %}
-<option value="{{ m }}"
-{% if selected_month|stringformat:"s" == m|stringformat:"s" %}selected{% endif %}>
-{{ label }}
-</option>
-{% endfor %}
-
-</select>
-
-</div>
-
-
-<!-- Year -->
-<div class="col-md-2">
-<label class="form-label">Year</label>
-
-<input type="number"
-name="year"
-value="{{ selected_year }}"
-class="form-control"
-placeholder="2026">
-
-</div>
-
-
-<!-- Buttons -->
-<div class="col-md-2 d-flex gap-2">
-
-<button class="btn btn-submit w-50">
-<i class="bi bi-search"></i>
-</button>
-
-<a href="{% url 'view_income' %}" class="btn btn-outline-secondary w-50">
-<i class="bi bi-arrow-counterclockwise"></i>
-</a>
-
-</div>
-
-</div>
-
+        <!-- Buttons -->
+        <div class="col-md-2 d-flex gap-2">
+            <button class="btn btn-submit w-50">
+                <i class="bi bi-search"></i>
+            </button>
+            <a href="{% url 'view_income' %}" class="btn btn-outline-secondary w-50">
+                <i class="bi bi-arrow-counterclockwise"></i>
+            </a>
+        </div>
+    </div>
 </form>
 
 
