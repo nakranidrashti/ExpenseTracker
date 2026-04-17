@@ -9,4 +9,4 @@ vectorizer = joblib.load(os.path.join(BASE_DIR, "vectorizer.pkl"))
 def predict_category(text):
     text_vec = vectorizer.transform([text])
     prediction = model.predict(text_vec)
-     return prediction[0]
+    return prediction[0]
