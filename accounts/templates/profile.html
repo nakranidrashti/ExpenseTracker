@@ -9,362 +9,361 @@ Profile
 
 <style>
 
-.profile-card{
-max-width:600px;
-margin:auto;
-background:white;
-padding:35px;
-border-radius:20px;
-box-shadow:0 10px 30px rgba(0,0,0,0.05);
-transition:.3s;
-}
+    .profile-card{
+        max-width:600px;
+        margin:auto;
+        background:white;
+        padding:35px;
+        border-radius:20px;
+        box-shadow:0 10px 30px rgba(0,0,0,0.05);
+        transition:.3s;
+    }
 
-.profile-avatar{
-width:120px;
-height:120px;
-border-radius:50%;
-object-fit:cover;
-border:2px solid #79b9cc;
-}
+    .profile-avatar{
+        width:120px;
+        height:120px;
+        border-radius:50%;
+        object-fit:cover;
+        border:2px solid #79b9cc;
+    }
 
-.avatar-placeholder{
-width:120px;
-height:120px;
-border-radius:50%;
-background:linear-gradient(135deg,#6f42c1,#0dcaf0);
-color:white;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:36px;
-font-weight:600;
-}
+    .avatar-placeholder{
+        width:120px;
+        height:120px;
+        border-radius:50%;
+        background:linear-gradient(135deg,#6f42c1,#0dcaf0);
+        color:white;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        font-size:36px;
+        font-weight:600;
+    }
 
-.upload-btn{
-position:absolute;
-bottom:5px;
-right:5px;
-background:#79b9cc;
-border:none;
-border-radius:50%;
-width:30px;
-height:30px;
-display:flex;
-align-items:center;
-justify-content:center;
-cursor:pointer;
-}
+    .upload-btn{
+        position:absolute;
+        bottom:5px;
+        right:5px;
+        background:#79b9cc;
+        border:none;
+        border-radius:50%;
+        width:30px;
+        height:30px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        cursor:pointer;
+    }
 
-.upload-btn i{
-font-size:14px;
-color:black;
-}
+    .upload-btn i{
+        font-size:14px;
+        color:black;
+    }
 
-.profile-img-wrapper{
-position:relative;
-display:inline-block;
-}
+    .profile-img-wrapper{
+        position:relative;
+        display:inline-block;
+    }
 
-.btn-save{
-background:#79b9cc;
-border:none;
-height:45px;
-border-radius:10px;
-transition:.3s;
-}
+    .btn-save{
+        background:#79b9cc;
+        border:none;
+        height:45px;
+        border-radius:10px;
+        transition:.3s;
+    }
 
-.btn-save:hover{
-background:#3f95ad;
-color:white;
-}
+    .btn-save:hover{
+        background:#3f95ad;
+        color:white;
+    }
 
-.rounded-input{
-border-radius:12px!important;
-height:45px;
-}
+    .rounded-input{
+        border-radius:12px!important;
+        height:45px;
+    }
 
-/* BIO textarea */
+    /* BIO textarea */
 
-.bio-input{
-border-radius:12px!important;
-min-height:90px;
-resize:none;
-}
+    .bio-input{
+        border-radius:12px!important;
+        min-height:90px;
+        resize:none;
+    }
 
-/* DARK MODE */
+    /* DARK MODE */
 
-body.dark .profile-card{
-background:#1f1f1f;
-color:#fff;
-box-shadow:0 10px 30px rgba(0,0,0,0.6);
-}
+    body.dark .profile-card{
+        background:#1f1f1f;
+        color:#fff;
+        box-shadow:0 10px 30px rgba(0,0,0,0.6);
+    }
 
-body.dark .profile-card label{
-color:#ddd;
-}
+    body.dark .profile-card label{
+        color:#ddd;
+    }
 
-body.dark .rounded-input,
-body.dark .bio-input{
-background:#2a2a2a;
-color:#fff;
-border:1px solid #444;
-}
+    body.dark .rounded-input,
+    body.dark .bio-input{
+        background:#2a2a2a;
+        color:#fff;
+        border:1px solid #444;
+    }
 
-body.dark .rounded-input:focus,
-body.dark .bio-input:focus{
-border-color:#79b9cc;
-box-shadow:0 0 0 .15rem rgba(121,185,204,.25);
-}
+    body.dark .rounded-input:focus,
+    body.dark .bio-input:focus{
+        border-color:#79b9cc;
+        box-shadow:0 0 0 .15rem rgba(121,185,204,.25);
+    }
 
-body.dark .upload-btn{
-background:#5eaec4;
-}
+    body.dark .upload-btn{
+        background:#5eaec4;
+    }
 
-body.dark .upload-btn i{
-color:#fff;
-}
+    body.dark .upload-btn i{
+        color:#fff;
+    }
 
-#submitBtn:disabled{
-background-color:#ccc !important;
-color:#666;
-cursor:not-allowed;
-}
+    #submitBtn:disabled{
+        background-color:#ccc !important;
+        color:#666;
+        cursor:not-allowed;
+    }
 
 
-.photo-menu{
-position:absolute;
-bottom:-90px;
-right:-10px;
-background:white;
-border-radius:10px;
-box-shadow:0 10px 25px rgba(0,0,0,0.1);
-display:none;
-flex-direction:column;
-width:150px;
-z-index:10;
-}
+    .photo-menu{
+        position:absolute;
+        bottom:-90px;
+        right:-10px;
+        background:white;
+        border-radius:10px;
+        box-shadow:0 10px 25px rgba(0,0,0,0.1);
+        display:none;
+        flex-direction:column;
+        width:150px;
+        z-index:10;
+    }
 
-.photo-menu .menu-item{
-padding:10px;
-cursor:pointer;
-border:none;
-background:none;
-text-align:left;
-font-size:14px;
-}
+    .photo-menu .menu-item{
+        padding:10px;
+        cursor:pointer;
+        border:none;
+        background:none;
+        text-align:left;
+        font-size:14px;
+    }
 
-.photo-menu .menu-item:hover{
-background:#f5f5f5;
-}
+    .photo-menu .menu-item:hover{
+        background:#f5f5f5;
+    }
 
-.photo-menu{
-transition:all .2s ease;
-}
+    .photo-menu{
+        transition:all .2s ease;
+    }
 
-/* DARK MODE PHOTO MENU */
+    /* DARK MODE PHOTO MENU */
 
-body.dark .photo-menu{
-background:#2a2a2a;
-box-shadow:0 10px 25px rgba(0,0,0,0.6);
-}
+    body.dark .photo-menu{
+        background:#2a2a2a;
+        box-shadow:0 10px 25px rgba(0,0,0,0.6);
+    }
 
-body.dark .photo-menu .menu-item{
-color:#fff;
-}
+    body.dark .photo-menu .menu-item{
+        color:#fff;
+    }
 
-body.dark .photo-menu .menu-item:hover{
-background:#3a3a3a;
-}
+    body.dark .photo-menu .menu-item:hover{
+        background:#3a3a3a;
+    }
 
-body.dark .photo-menu .text-danger{
-color:#ff6b6b !important;
-}
+    body.dark .photo-menu .text-danger{
+        color:#ff6b6b !important;
+    }
 </style>
 
 
 <div class="profile-card">
 
-<h4 class="mb-4">Edit Profile</h4>
+    <h4 class="mb-4">Edit Profile</h4>
 
-<form method="POST" enctype="multipart/form-data" id="profileForm">
-{% csrf_token %}
+    <form method="POST" enctype="multipart/form-data" id="profileForm">
+    {% csrf_token %}
 
-<div class="text-center mb-4">
+        <div class="text-center mb-4">
 
-<div class="profile-img-wrapper">
-
-
-{% if user.profile.profile_pic %}
-<img src="{{ user.profile.profile_pic.url }}" class="profile-avatar">
-{% else %}
-<div class="avatar-placeholder">
-{{ user.first_name|first }}{{ user.last_name|first }}
-</div>
-{% endif %}
-
-<button type="button" class="upload-btn" onclick="toggleMenu()">
-<i class="bi bi-camera"></i>
-</button>
-
-<div id="photoMenu" class="photo-menu">
-
-<label class="menu-item">
-Upload Photo
-<input type="file" name="profile_pic" hidden>
-</label>
-
-<input type="hidden" name="remove_photo" id="removePhotoInput" value="0">
-
-<button type="button" class="menu-item text-danger" onclick="removePhoto()">
-Remove Photo
-</button>
-
-</div>
+            <div class="profile-img-wrapper">
 
 
+                {% if user.profile.profile_pic %}
+                <img src="{{ user.profile.profile_pic.url }}" class="profile-avatar">
+                {% else %}
+                    <div class="avatar-placeholder">
+                        {{ user.first_name|first }}{{ user.last_name|first }}
+                    </div>
+                {% endif %}
 
-</div>
-</div>
+                <button type="button" class="upload-btn" onclick="toggleMenu()">
+                    <i class="bi bi-camera"></i>
+                </button>
 
+                <div id="photoMenu" class="photo-menu">
 
-<div class="row">
+                    <label class="menu-item">
+                        Upload Photo
+                        <input type="file" name="profile_pic" hidden>
+                    </label>
 
-<div class="col-md-6 mb-3">
-<label>First Name</label>
-<input type="text"
-name="first_name"
-value="{{ user.first_name }}"
-class="form-control rounded-input">
-</div>
+                    <input type="hidden" name="remove_photo" id="removePhotoInput" value="0">
 
-<div class="col-md-6 mb-3">
-<label>Last Name</label>
-<input type="text"
-name="last_name"
-value="{{ user.last_name }}"
-class="form-control rounded-input">
-</div>
+                    <button type="button" class="menu-item text-danger" onclick="removePhoto()">
+                        Remove Photo
+                    </button>
 
-</div>
-
-
-<div class="mb-3">
-<label>Email</label>
-<input type="email"
-name="email"
-value="{{ user.email }}"
-class="form-control rounded-input">
-</div>
+                </div>
 
 
-<div class="row">
 
-<div class="col-md-6 mb-3">
-<label>Date of Birth</label>
-<input type="date"
-name="dob"
-value="{{ user.profile.dob|date:'Y-m-d' }}"
-class="form-control rounded-input">
-</div>
+            </div>
+        </div>
 
 
-<div class="col-md-6 mb-3">
-<label>Phone</label>
-<input type="text"
-name="phone"
-value="{{ user.profile.phone }}"
-class="form-control rounded-input">
-</div>
+        <div class="row">
 
-</div>
+            <div class="col-md-6 mb-3">
+                <label>First Name</label>
+                <input type="text"
+                name="first_name"
+                value="{{ user.first_name }}"
+                class="form-control rounded-input">
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label>Last Name</label>
+                <input type="text"
+                name="last_name"
+                value="{{ user.last_name }}"
+                class="form-control rounded-input">
+            </div>
+
+        </div>
 
 
-<div class="mb-3">
-<label>Bio</label>
-<textarea
-name="bio"
-class="form-control bio-input"
-placeholder="Write something about yourself...">{{ user.profile.bio }}</textarea>
-</div>
+        <div class="mb-3">
+            <label>Email</label>
+            <input type="email"
+            name="email"
+            value="{{ user.email }}"
+            class="form-control rounded-input">
+        </div>
 
 
-<button type="submit" id="submitBtn" class="btn btn-save w-100" disabled>
-Save Changes
-</button>
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label>Date of Birth</label>
+                <input type="date"
+                name="dob"
+                value="{{ user.profile.dob|date:'Y-m-d' }}"
+                class="form-control rounded-input">
+            </div>
 
-</form>
+
+            <div class="col-md-6 mb-3">
+                <label>Phone</label>
+                <input type="text"
+                name="phone"
+                value="{{ user.profile.phone }}"
+                class="form-control rounded-input">
+            </div>
+
+        </div>
+
+
+        <div class="mb-3">
+            <label>Bio</label>
+            <textarea
+            name="bio"
+            class="form-control bio-input"
+            placeholder="Write something about yourself...">{{ user.profile.bio }}</textarea>
+        </div>
+
+
+        <button type="submit" id="submitBtn" class="btn btn-save w-100" disabled>
+            Save Changes
+        </button>
+
+    </form>
 
 </div>
 
 
 <script>
-const form = document.getElementById("profileForm");
-const submitBtn = document.getElementById("submitBtn");
+    const form = document.getElementById("profileForm");
+    const submitBtn = document.getElementById("submitBtn");
 
-const inputs = form.querySelectorAll("input, textarea");
+    const inputs = form.querySelectorAll("input, textarea");
 
-function checkFields() {
-    let allFilled = true;
+    function checkFields() {
+        let allFilled = true;
+
+        inputs.forEach(input => {
+            if (input.type !== "file" && input.value.trim() === "") {
+                allFilled = false;
+            }
+        });
+
+        submitBtn.disabled = !allFilled;
+    }
 
     inputs.forEach(input => {
-        if (input.type !== "file" && input.value.trim() === "") {
-            allFilled = false;
-        }
+        input.addEventListener("input", checkFields);
     });
 
-    submitBtn.disabled = !allFilled;
-}
-
-inputs.forEach(input => {
-    input.addEventListener("input", checkFields);
-});
 
 
+    function toggleMenu(){
+    const menu = document.getElementById("photoMenu");
 
-function toggleMenu(){
-const menu = document.getElementById("photoMenu");
-
-if(menu.style.display === "flex"){
-menu.style.display = "none";
-}
-else{
-menu.style.display = "flex";
-}
-}
+    if(menu.style.display === "flex"){
+    menu.style.display = "none";
+    }
+    else{
+    menu.style.display = "flex";
+    }
+    }
 
 
 
 
 
-function removePhoto(){
+    function removePhoto(){
 
-document.getElementById("removePhotoInput").value = "1";
+    document.getElementById("removePhotoInput").value = "1";
 
-const avatar = document.querySelector(".profile-avatar");
-const placeholder = document.querySelector(".avatar-placeholder");
+    const avatar = document.querySelector(".profile-avatar");
+    const placeholder = document.querySelector(".avatar-placeholder");
 
-if(avatar){
-avatar.remove();
-}
+    if(avatar){
+    avatar.remove();
+    }
 
-if(!placeholder){
+    if(!placeholder){
 
-let newPlaceholder = document.createElement("div");
-newPlaceholder.className = "avatar-placeholder";
-newPlaceholder.innerText = "{{ user.first_name|first }}{{ user.last_name|first }}";
+    let newPlaceholder = document.createElement("div");
+    newPlaceholder.className = "avatar-placeholder";
+    newPlaceholder.innerText = "{{ user.first_name|first }}{{ user.last_name|first }}";
 
-const wrapper = document.querySelector(".profile-img-wrapper");
+    const wrapper = document.querySelector(".profile-img-wrapper");
 
-wrapper.insertBefore(newPlaceholder, wrapper.firstChild);
+    wrapper.insertBefore(newPlaceholder, wrapper.firstChild);
 
-}
+    }
 
-submitBtn.disabled = false;
+    submitBtn.disabled = false;
 
-/* menu hide */
-document.getElementById("photoMenu").style.display = "none";
+    /* menu hide */
+    document.getElementById("photoMenu").style.display = "none";
 
-}
+    }
 
 
 
@@ -372,45 +371,45 @@ document.getElementById("photoMenu").style.display = "none";
 
 
 
-const fileInput = document.querySelector("input[name='profile_pic']");
+    const fileInput = document.querySelector("input[name='profile_pic']");
 
-fileInput.addEventListener("change", function(){
+    fileInput.addEventListener("change", function(){
 
-const file = this.files[0];
+    const file = this.files[0];
 
-if(file){
+    if(file){
 
-const reader = new FileReader();
+    const reader = new FileReader();
 
-reader.onload = function(e){
+    reader.onload = function(e){
 
-let avatar = document.querySelector(".profile-avatar");
-let placeholder = document.querySelector(".avatar-placeholder");
+    let avatar = document.querySelector(".profile-avatar");
+    let placeholder = document.querySelector(".avatar-placeholder");
 
-if(placeholder){
-placeholder.remove();
-}
+    if(placeholder){
+    placeholder.remove();
+    }
 
-if(!avatar){
+    if(!avatar){
 
-avatar = document.createElement("img");
-avatar.className = "profile-avatar";
-document.querySelector(".profile-img-wrapper").prepend(avatar);
+    avatar = document.createElement("img");
+    avatar.className = "profile-avatar";
+    document.querySelector(".profile-img-wrapper").prepend(avatar);
 
-}
+    }
 
-avatar.src = e.target.result;
+    avatar.src = e.target.result;
 
-}
+    }
 
-reader.readAsDataURL(file);
+    reader.readAsDataURL(file);
 
-submitBtn.disabled = false;
-/* menu hide */
-document.getElementById("photoMenu").style.display = "none";
-}
+    submitBtn.disabled = false;
+    /* menu hide */
+    document.getElementById("photoMenu").style.display = "none";
+    }
 
-});
+    });
 
 
 

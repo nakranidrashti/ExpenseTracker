@@ -11,6 +11,7 @@ A full-stack web application built using Django to manage and analyze income and
 - Dashboard for tracking income and expenses
 - Budget alerts (exceeded / nearly exhausted)
 - Automatic expense categorization using machine learning
+- Dark mode support
 - User profile management
 
 ---
