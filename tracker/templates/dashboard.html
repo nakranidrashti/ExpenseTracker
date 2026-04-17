@@ -217,310 +217,310 @@
 {% endblock %}
 
 {% block scripts %}
-  <script>
+<script>
 
-/* CHECK DARK MODE */
-let isDark = document.body.classList.contains("dark");
+  /* CHECK DARK MODE */
+  let isDark = document.body.classList.contains("dark");
 
-/* CATEGORY DATA */
-const categoryLabels = [
-{% for item in expense_by_category %}
-"{{ item.category__name }}"{% if not forloop.last %},{% endif %}
-{% endfor %}
-];
+  /* CATEGORY DATA */
+  const categoryLabels = [
+  {% for item in expense_by_category %}
+  "{{ item.category__name }}"{% if not forloop.last %},{% endif %}
+  {% endfor %}
+  ];
 
-const categoryData = [
-{% for item in expense_by_category %}
-{{ item.total }}{% if not forloop.last %},{% endif %}
-{% endfor %}
-];
+  const categoryData = [
+  {% for item in expense_by_category %}
+  {{ item.total }}{% if not forloop.last %},{% endif %}
+  {% endfor %}
+  ];
 
-/* MONTH DATA */
-const monthLabels = [
-{% for m in months_data %}
-"{{ m }}"{% if not forloop.last %},{% endif %}
-{% endfor %}
-];
+  /* MONTH DATA */
+  const monthLabels = [
+  {% for m in months_data %}
+  "{{ m }}"{% if not forloop.last %},{% endif %}
+  {% endfor %}
+  ];
 
-const monthData = [
-{% for e in monthly_expense %}
-{{ e }}{% if not forloop.last %},{% endif %}
-{% endfor %}
-];
-const incomeMonthData = [
-{% for i in monthly_income %}
-{{ i }}{% if not forloop.last %},{% endif %}
-{% endfor %}
-];
+  const monthData = [
+  {% for e in monthly_expense %}
+  {{ e }}{% if not forloop.last %},{% endif %}
+  {% endfor %}
+  ];
+  const incomeMonthData = [
+  {% for i in monthly_income %}
+  {{ i }}{% if not forloop.last %},{% endif %}
+  {% endfor %}
+  ];
 
-/* INCOME DATA */
-const incomeLabels = [
-{% for item in income_by_category %}
-"{{ item.category__name }}"{% if not forloop.last %},{% endif %}
-{% endfor %}
-];
+  /* INCOME DATA */
+  const incomeLabels = [
+  {% for item in income_by_category %}
+  "{{ item.category__name }}"{% if not forloop.last %},{% endif %}
+  {% endfor %}
+  ];
 
-const incomeData = [
-{% for item in income_by_category %}
-{{ item.total }}{% if not forloop.last %},{% endif %}
-{% endfor %}
-];
+  const incomeData = [
+  {% for item in income_by_category %}
+  {{ item.total }}{% if not forloop.last %},{% endif %}
+  {% endfor %}
+  ];
 
-/* CREATE CHARTS */
+  /* CREATE CHARTS */
 
-const mainChart = new Chart(document.getElementById("mainExpenseChart"), {
-    type: "bar",
-    data: {
-        labels: categoryLabels,
-        datasets: [{
-            data: categoryData,
-            backgroundColor: [
-                "#d6eef6","#bfe3ef","#a8d8ea","#90cde5",
-                "#7ec8e3","#6abfdc","#56b6d6","#42adcf",
-                "#2fa4c9","#2498bd"
-            ],
-            borderRadius: 10,
-            barThickness: 70
-        }]
-    },
-    options: {
-        plugins: {
-            tooltip: {
-                titleColor: isDark ? "#fff" : "#000",
-                bodyColor: isDark ? "#fff" : "#000"
-            },
-            legend: { 
-                display: false, 
-                labels: { color: isDark ? "#fff" : "#000" } 
-            }
-        },
-        scales: {
-            x: { 
-                grid: { display: false, color: isDark ? "#555" : "#ccc" }, 
-                ticks: { color: isDark ? "#fff" : "#000" } 
-            },
-            y: { 
-                beginAtZero: true,
-                grid: { color: isDark ? "#555" : "#ccc" }, 
-                ticks: { color: isDark ? "#fff" : "#000" } 
-            }
-        }
-    }
-});
+  const mainChart = new Chart(document.getElementById("mainExpenseChart"), {
+      type: "bar",
+      data: {
+          labels: categoryLabels,
+          datasets: [{
+              data: categoryData,
+              backgroundColor: [
+                  "#d6eef6","#bfe3ef","#a8d8ea","#90cde5",
+                  "#7ec8e3","#6abfdc","#56b6d6","#42adcf",
+                  "#2fa4c9","#2498bd"
+              ],
+              borderRadius: 10,
+              barThickness: 70
+          }]
+      },
+      options: {
+          plugins: {
+              tooltip: {
+                  titleColor: isDark ? "#fff" : "#000",
+                  bodyColor: isDark ? "#fff" : "#000"
+              },
+              legend: { 
+                  display: false, 
+                  labels: { color: isDark ? "#fff" : "#000" } 
+              }
+          },
+          scales: {
+              x: { 
+                  grid: { display: false, color: isDark ? "#555" : "#ccc" }, 
+                  ticks: { color: isDark ? "#fff" : "#000" } 
+              },
+              y: { 
+                  beginAtZero: true,
+                  grid: { color: isDark ? "#555" : "#ccc" }, 
+                  ticks: { color: isDark ? "#fff" : "#000" } 
+              }
+          }
+      }
+  });
 
-const expenseChart = new Chart(document.getElementById("expenseChart"), {
-    type: "doughnut",
-    data: {
-        labels: categoryLabels,
-        datasets: [{
-            data: categoryData,
-            backgroundColor: [
-                "#ff6b6b","#ff8787","#ffa8a8",
-                "#ffc9c9","#ffdede","#ffeaea"
-            ],
-            borderWidth: 0
-        }]
-    },
-    options:{
-cutout:"72%",
-plugins:{
-legend:{
-position:"bottom",
-labels:{
-padding:20,
-boxWidth:14,
-color:isDark ? "#fff" : "#000"
-}
-}
-}
-}
-});
+  const expenseChart = new Chart(document.getElementById("expenseChart"), {
+      type: "doughnut",
+      data: {
+          labels: categoryLabels,
+          datasets: [{
+              data: categoryData,
+              backgroundColor: [
+                  "#ff6b6b","#ff8787","#ffa8a8",
+                  "#ffc9c9","#ffdede","#ffeaea"
+              ],
+              borderWidth: 0
+          }]
+      },
+      options:{
+  cutout:"72%",
+  plugins:{
+  legend:{
+  position:"bottom",
+  labels:{
+  padding:20,
+  boxWidth:14,
+  color:isDark ? "#fff" : "#000"
+  }
+  }
+  }
+  }
+  });
 
-const incomeChart = new Chart(document.getElementById("incomeChart"), {
-    type: "pie",
-    data: {
-        labels: incomeLabels,
-        datasets:[{
-data:incomeData,
-hoverOffset:15,
-backgroundColor:[
-"#58d68d",
-"#82e0aa",
-"#abebc6",
-"#2ecc71",
-"#d5f5e3",
-"#eafaf1"
-]
-}]
-    },
-    options: {
-        plugins: { legend: { position: "bottom", labels: { color: isDark ? "#fff" : "#000" } } }
-    }
-});
-
-
-const trendChart = new Chart(document.getElementById("trendChart"), {
-type:"line",
-data:{
-labels:monthLabels,
-datasets:[
-{
-label:"Income",
-data:incomeMonthData,
-borderColor:"#2ecc71",
-backgroundColor:"rgba(46,204,113,0.2)",
-tension:0.4,
-fill:true,
-pointRadius:4
-},
-{
-label:"Expense",
-data:monthData,
-borderColor:"#e74c3c",
-backgroundColor:"rgba(231,76,60,0.2)",
-tension:0.4,
-fill:true,
-pointRadius:4
-}
-]
-},
-options:{
-responsive:true,
-plugins:{
-legend:{
-labels:{
-color: isDark ? "#fff" : "#444"
-}
-},
-tooltip:{
-backgroundColor: isDark ? "#333" : "#fff",
-titleColor: isDark ? "#fff" : "#000",
-bodyColor: isDark ? "#fff" : "#000",
-borderColor: isDark ? "#555" : "#ddd",
-borderWidth:1
-}
-},
-scales:{
-x:{
-grid:{
-display:false
-},
-ticks:{
-color: isDark ? "#fff" : "#444"
-}
-},
-y:{
-beginAtZero:true,
-grid:{
-color: isDark ? "#333" : "#eaeaea"
-},
-ticks:{
-color: isDark ? "#fff" : "#444"
-}
-}
-}
-}
-});
+  const incomeChart = new Chart(document.getElementById("incomeChart"), {
+      type: "pie",
+      data: {
+          labels: incomeLabels,
+          datasets:[{
+  data:incomeData,
+  hoverOffset:15,
+  backgroundColor:[
+  "#58d68d",
+  "#82e0aa",
+  "#abebc6",
+  "#2ecc71",
+  "#d5f5e3",
+  "#eafaf1"
+  ]
+  }]
+      },
+      options: {
+          plugins: { legend: { position: "bottom", labels: { color: isDark ? "#fff" : "#000" } } }
+      }
+  });
 
 
-
-
-/* TOGGLE CATEGORY / MONTH VIEWS */
-document.getElementById("categoryBtn").onclick = function() {
-    mainChart.data.labels = categoryLabels;
-    mainChart.data.datasets[0].data = categoryData;
-    mainChart.update();
-    document.getElementById("chartTitle").innerText = "Spend by Category";
-    this.classList.add("btn-primary"); this.classList.remove("btn-outline-primary");
-    document.getElementById("monthlyBtn").classList.remove("btn-primary");
-    document.getElementById("monthlyBtn").classList.add("btn-outline-primary");
-};
-
-document.getElementById("monthlyBtn").onclick = function() {
-    mainChart.data.labels = monthLabels;
-    mainChart.data.datasets[0].data = monthData;
-    mainChart.update();
-    document.getElementById("chartTitle").innerText = "Monthly Expenses";
-    this.classList.add("btn-primary"); this.classList.remove("btn-outline-primary");
-    document.getElementById("categoryBtn").classList.remove("btn-primary");
-    document.getElementById("categoryBtn").classList.add("btn-outline-primary");
-};
-
-/* DARK MODE CHARTS UPDATE */
-function updateChartsColors() {
-   const isDark = document.body.classList.contains("dark");
-    const textColor = isDark ? "#fff" : "#000";
-    const gridColor = isDark ? "#555" : "#ccc";
-    const tooltipBg = isDark ? "#333" : "#fff";
-
-    // Main chart
-    mainChart.options.scales.x.ticks.color = textColor;
-    mainChart.options.scales.y.ticks.color = textColor;
-    mainChart.options.scales.x.grid.color = gridColor;
-    mainChart.options.scales.y.grid.color = gridColor;
-    mainChart.options.plugins.tooltip.backgroundColor = tooltipBg;
-    mainChart.options.plugins.tooltip.titleColor = textColor;
-    mainChart.options.plugins.tooltip.bodyColor = textColor;
-    mainChart.options.plugins.legend.labels.color = textColor;
-    mainChart.update();
-
-    // Expense chart (doughnut)
-    expenseChart.options.plugins.legend.labels.color = textColor;
-    expenseChart.options.plugins.tooltip.backgroundColor = tooltipBg;
-    expenseChart.options.plugins.tooltip.titleColor = textColor;
-    expenseChart.options.plugins.tooltip.bodyColor = textColor;
-    expenseChart.update();
-
-    // Income chart (pie)
-    incomeChart.options.plugins.legend.labels.color = textColor;
-    incomeChart.options.plugins.tooltip.backgroundColor = tooltipBg;
-    incomeChart.options.plugins.tooltip.titleColor = textColor;
-    incomeChart.options.plugins.tooltip.bodyColor = textColor;
-    incomeChart.update();
-
-    // Trend chart
-trendChart.options.scales.x.ticks.color = textColor;
-trendChart.options.scales.y.ticks.color = textColor;
-trendChart.options.scales.y.grid.color = gridColor;
-trendChart.options.plugins.legend.labels.color = textColor;
-trendChart.options.plugins.tooltip.backgroundColor = tooltipBg;
-trendChart.options.plugins.tooltip.titleColor = textColor;
-trendChart.options.plugins.tooltip.bodyColor = textColor;
-trendChart.update();
-}
+  const trendChart = new Chart(document.getElementById("trendChart"), {
+  type:"line",
+  data:{
+  labels:monthLabels,
+  datasets:[
+  {
+  label:"Income",
+  data:incomeMonthData,
+  borderColor:"#2ecc71",
+  backgroundColor:"rgba(46,204,113,0.2)",
+  tension:0.4,
+  fill:true,
+  pointRadius:4
+  },
+  {
+  label:"Expense",
+  data:monthData,
+  borderColor:"#e74c3c",
+  backgroundColor:"rgba(231,76,60,0.2)",
+  tension:0.4,
+  fill:true,
+  pointRadius:4
+  }
+  ]
+  },
+  options:{
+  responsive:true,
+  plugins:{
+  legend:{
+  labels:{
+  color: isDark ? "#fff" : "#444"
+  }
+  },
+  tooltip:{
+  backgroundColor: isDark ? "#333" : "#fff",
+  titleColor: isDark ? "#fff" : "#000",
+  bodyColor: isDark ? "#fff" : "#000",
+  borderColor: isDark ? "#555" : "#ddd",
+  borderWidth:1
+  }
+  },
+  scales:{
+  x:{
+  grid:{
+  display:false
+  },
+  ticks:{
+  color: isDark ? "#fff" : "#444"
+  }
+  },
+  y:{
+  beginAtZero:true,
+  grid:{
+  color: isDark ? "#333" : "#eaeaea"
+  },
+  ticks:{
+  color: isDark ? "#fff" : "#444"
+  }
+  }
+  }
+  }
+  });
 
 
 
 
-// ✅ Run after page load
-window.addEventListener("load", updateChartsColors);
+  /* TOGGLE CATEGORY / MONTH VIEWS */
+  document.getElementById("categoryBtn").onclick = function() {
+      mainChart.data.labels = categoryLabels;
+      mainChart.data.datasets[0].data = categoryData;
+      mainChart.update();
+      document.getElementById("chartTitle").innerText = "Spend by Category";
+      this.classList.add("btn-primary"); this.classList.remove("btn-outline-primary");
+      document.getElementById("monthlyBtn").classList.remove("btn-primary");
+      document.getElementById("monthlyBtn").classList.add("btn-outline-primary");
+  };
 
-/* TOGGLE THEME FUNCTION */
+  document.getElementById("monthlyBtn").onclick = function() {
+      mainChart.data.labels = monthLabels;
+      mainChart.data.datasets[0].data = monthData;
+      mainChart.update();
+      document.getElementById("chartTitle").innerText = "Monthly Expenses";
+      this.classList.add("btn-primary"); this.classList.remove("btn-outline-primary");
+      document.getElementById("categoryBtn").classList.remove("btn-primary");
+      document.getElementById("categoryBtn").classList.add("btn-outline-primary");
+  };
 
-// ✅ Apply correct colors on page load
-updateChartsColors();
+  /* DARK MODE CHARTS UPDATE */
+  function updateChartsColors() {
+    const isDark = document.body.classList.contains("dark");
+      const textColor = isDark ? "#fff" : "#000";
+      const gridColor = isDark ? "#555" : "#ccc";
+      const tooltipBg = isDark ? "#333" : "#fff";
+
+      // Main chart
+      mainChart.options.scales.x.ticks.color = textColor;
+      mainChart.options.scales.y.ticks.color = textColor;
+      mainChart.options.scales.x.grid.color = gridColor;
+      mainChart.options.scales.y.grid.color = gridColor;
+      mainChart.options.plugins.tooltip.backgroundColor = tooltipBg;
+      mainChart.options.plugins.tooltip.titleColor = textColor;
+      mainChart.options.plugins.tooltip.bodyColor = textColor;
+      mainChart.options.plugins.legend.labels.color = textColor;
+      mainChart.update();
+
+      // Expense chart (doughnut)
+      expenseChart.options.plugins.legend.labels.color = textColor;
+      expenseChart.options.plugins.tooltip.backgroundColor = tooltipBg;
+      expenseChart.options.plugins.tooltip.titleColor = textColor;
+      expenseChart.options.plugins.tooltip.bodyColor = textColor;
+      expenseChart.update();
+
+      // Income chart (pie)
+      incomeChart.options.plugins.legend.labels.color = textColor;
+      incomeChart.options.plugins.tooltip.backgroundColor = tooltipBg;
+      incomeChart.options.plugins.tooltip.titleColor = textColor;
+      incomeChart.options.plugins.tooltip.bodyColor = textColor;
+      incomeChart.update();
+
+      // Trend chart
+  trendChart.options.scales.x.ticks.color = textColor;
+  trendChart.options.scales.y.ticks.color = textColor;
+  trendChart.options.scales.y.grid.color = gridColor;
+  trendChart.options.plugins.legend.labels.color = textColor;
+  trendChart.options.plugins.tooltip.backgroundColor = tooltipBg;
+  trendChart.options.plugins.tooltip.titleColor = textColor;
+  trendChart.options.plugins.tooltip.bodyColor = textColor;
+  trendChart.update();
+  }
 
 
-/* NUMBER COUNT ANIMATION */
 
-const counters = document.querySelectorAll(".counter");
 
-counters.forEach(counter=>{
-    const update = ()=>{
-        const target = +counter.getAttribute("data-target");
-        const current = +counter.innerText;
+  // ✅ Run after page load
+  window.addEventListener("load", updateChartsColors);
 
-        const increment = target / 60;
+  /* TOGGLE THEME FUNCTION */
 
-        if(current < target){
-            counter.innerText = "₹" + Math.ceil(current + increment);
-            setTimeout(update,20);
-        }else{
-            counter.innerText = "₹" + target;
-        }
-    };
+  // ✅ Apply correct colors on page load
+  updateChartsColors();
 
-    update();
-});
+
+  /* NUMBER COUNT ANIMATION */
+
+  const counters = document.querySelectorAll(".counter");
+
+  counters.forEach(counter=>{
+      const update = ()=>{
+          const target = +counter.getAttribute("data-target");
+          const current = +counter.innerText;
+
+          const increment = target / 60;
+
+          if(current < target){
+              counter.innerText = "₹" + Math.ceil(current + increment);
+              setTimeout(update,20);
+          }else{
+              counter.innerText = "₹" + target;
+          }
+      };
+
+      update();
+  });
 </script>
 {% endblock %}
