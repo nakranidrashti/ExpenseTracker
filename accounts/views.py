@@ -168,4 +168,4 @@ def forgot_password(request):
         except User.DoesNotExist:
             messages.error(request, "Username not found")
 
-        return render(request, "forgot_password.html")
+    return render(request, "forgot_password.html")
